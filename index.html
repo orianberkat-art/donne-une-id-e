@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+
+<html lang="fr">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Boîte à idées 💡</title>
+
+
+
+  <style>
+
+    body {
+
+      margin: 0;
+
+      font-family: Arial, sans-serif;
+
+      background: #101323;
+
+      color: white;
+
+      display: flex;
+
+      justify-content: center;
+
+      align-items: center;
+
+      min-height: 100vh;
+
+    }
+
+
+
+    .boite {
+
+      background: #1d2238;
+
+      padding: 30px;
+
+      border-radius: 20px;
+
+      width: 85%;
+
+      max-width: 420px;
+
+      box-shadow: 0 0 25px #5965ff33;
+
+    }
+
+
+
+    h1 {
+
+      text-align: center;
+
+      color: #a5adff;
+
+    }
+
+
+
+    p {
+
+      text-align: center;
+
+      color: #c4c8df;
+
+    }
+
+
+
+    input, textarea {
+
+      box-sizing: border-box;
+
+      width: 100%;
+
+      padding: 13px;
+
+      margin-top: 12px;
+
+      border: 1px solid #414969;
+
+      border-radius: 10px;
+
+      background: #101323;
+
+      color: white;
+
+      font-size: 15px;
+
+    }
+
+
+
+    textarea {
+
+      height: 120px;
+
+      resize: vertical;
+
+    }
+
+
+
+    button {
+
+      width: 100%;
+
+      margin-top: 15px;
+
+      padding: 14px;
+
+      border: none;
+
+      border-radius: 10px;
+
+      background: #747fff;
+
+      color: white;
+
+      font-size: 16px;
+
+      font-weight: bold;
+
+      cursor: pointer;
+
+    }
+
+
+
+    button:hover {
+
+      background: #929aff;
+
+    }
+
+
+
+    .note {
+
+      font-size: 12px;
+
+      margin-top: 15px;
+
+    }
+
+  </style>
+
+</head>
+
+
+
+<body>
+
+  <div class="boite">
+
+    <h1>💡 Boîte à idées</h1>
+
+    <p>Une idée pour améliorer le site ? Envoie-la-moi !</p>
+
+
+
+    <form action="https://formsubmit.co/lolanberkat@gmail.com"
+
+          method="POST">
+
+
+
+      <input type="text" name="pseudo"
+
+             placeholder="Ton pseudo" required>
+
+
+
+      <input type="email" name="email"
+
+             placeholder="Ton adresse e-mail" required>
+
+
+
+      <textarea name="idee"
+
+                placeholder="Écris ton idée ici..."
+
+                required></textarea>
+
+
+
+      <input type="hidden" name="_subject"
+
+             value="Nouvelle idée pour mon site">
+
+
+
+      <input type="hidden" name="_captcha" value="true">
+
+
+
+      <button type="submit">Envoyer mon idée 🚀</button>
+
+    </form>
+
+
+
+    <p class="note">Merci de contribuer à l'amélioration du site ❤️</p>
+
+  </div>
+
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
