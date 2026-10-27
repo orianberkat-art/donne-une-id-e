@@ -1,232 +1,401 @@
-<!DOCTYPE html>
 
+<!DOCTYPE html>
 <html lang="fr">
 
 <head>
-<link rel="icon" type="image/png" href="logo.png">
-
-  
   <meta charset="UTF-8">
-
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="icon" type="image/png" href="logo.png">
 
   <title>Boîte à idées 💡</title>
 
-
-
   <style>
+    * {
+      box-sizing: border-box;
+    }
 
     body {
-
       margin: 0;
-
       font-family: Arial, sans-serif;
-
       background: #101323;
-
       color: white;
-
       display: flex;
-
       justify-content: center;
-
       align-items: center;
-
       min-height: 100vh;
-
+      padding: 20px 0;
     }
-
-
 
     .boite {
-
       background: #1d2238;
-
       padding: 30px;
-
       border-radius: 20px;
-
       width: 85%;
-
       max-width: 420px;
-
       box-shadow: 0 0 25px #5965ff33;
-
     }
-
-
 
     h1 {
-
       text-align: center;
-
       color: #a5adff;
-
     }
-
-
 
     p {
-
       text-align: center;
-
       color: #c4c8df;
-
     }
 
-
-
-    input, textarea {
-
-      box-sizing: border-box;
-
+    input,
+    textarea {
       width: 100%;
-
       padding: 13px;
-
       margin-top: 12px;
-
       border: 1px solid #414969;
-
       border-radius: 10px;
-
       background: #101323;
-
       color: white;
-
       font-size: 15px;
-
     }
 
-
+    input:focus,
+    textarea:focus {
+      outline: none;
+      border-color: #747fff;
+      box-shadow: 0 0 8px #747fff44;
+    }
 
     textarea {
-
       height: 120px;
-
       resize: vertical;
-
     }
-
-
 
     button {
-
       width: 100%;
-
       margin-top: 15px;
-
       padding: 14px;
-
       border: none;
-
       border-radius: 10px;
-
       background: #747fff;
-
       color: white;
-
       font-size: 16px;
-
       font-weight: bold;
-
       cursor: pointer;
-
+      transition: background 0.2s;
     }
-
-
 
     button:hover {
-
       background: #929aff;
-
     }
 
-
+    button:disabled {
+      opacity: 0.6;
+      cursor: wait;
+    }
 
     .note {
-
       font-size: 12px;
-
       margin-top: 15px;
-
     }
 
+    /* Pied de page */
+    .pied-page {
+      border-top: 1px solid #414969;
+      margin-top: 25px;
+      padding-top: 18px;
+      text-align: center;
+      font-size: 12px;
+      line-height: 1.9;
+      color: #c4c8df;
+    }
+
+    .nom-site {
+      color: #a5adff;
+      font-size: 14px;
+      font-weight: bold;
+    }
+
+    .pied-page a {
+      color: #a5adff;
+      text-decoration: none;
+    }
+
+    .pied-page a:hover {
+      color: #929aff;
+      text-decoration: underline;
+    }
+
+    /* Fond de la fenêtre */
+    .fond-modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: #000000b3;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      z-index: 1000;
+    }
+
+    /* Fenêtre */
+    .modal {
+      position: relative;
+      width: 100%;
+      max-width: 360px;
+      padding: 30px 22px;
+      background: #1d2238;
+      border: 1px solid #414969;
+      border-radius: 18px;
+      text-align: center;
+      box-shadow: 0 0 30px #5965ff55;
+      animation: apparition 0.25s ease;
+    }
+
+    .modal h2 {
+      color: #a5adff;
+      font-size: 23px;
+      margin-top: 12px;
+    }
+
+    .modal p {
+      line-height: 1.6;
+    }
+
+    .icone {
+      font-size: 42px;
+    }
+
+    /* Croix */
+    .fermer {
+      position: absolute;
+      top: 8px;
+      right: 10px;
+      width: 35px;
+      height: 35px;
+      margin: 0;
+      padding: 0;
+      background: transparent;
+      color: #c4c8df;
+      font-size: 28px;
+      font-weight: normal;
+    }
+
+    .fermer:hover {
+      background: #414969;
+      color: white;
+    }
+
+    @keyframes apparition {
+      from {
+        opacity: 0;
+        transform: translateY(10px) scale(0.97);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
   </style>
-
 </head>
-
-
 
 <body>
 
-  <div class="boite">
+  <main class="boite">
 
     <h1>💡 Boîte à idées</h1>
 
-    <p>Une idée pour améliorer le site ? Envoie-la-moi !</p>
+    <p>
+      Une idée pour améliorer le site ?
+      Partage-la avec nous !
+    </p>
 
+    <!-- FORMULAIRE FORMSUBMIT CONSERVÉ -->
+    <form
+      id="formulaire"
+      action="https://formsubmit.co/lolanberkat@gmail.com"
+      method="POST">
 
+      <input
+        type="text"
+        name="pseudo"
+        placeholder="Ton pseudo"
+        required>
 
-    <form action="https://formsubmit.co/lolanberkat@gmail.com"
+      <input
+        type="email"
+        name="email"
+        placeholder="Ton adresse e-mail"
+        required>
 
-          method="POST">
+      <textarea
+        name="idee"
+        placeholder="Écris ton idée ici..."
+        required></textarea>
 
+      <input
+        type="hidden"
+        name="_subject"
+        value="Nouvelle idée pour mon site">
 
+      <input
+        type="hidden"
+        name="_captcha"
+        value="true">
 
-      <input type="text" name="pseudo"
-
-             placeholder="Ton pseudo" required>
-
-
-
-      <input type="email" name="email"
-
-             placeholder="Ton adresse e-mail" required>
-
-
-
-      <textarea name="idee"
-
-                placeholder="Écris ton idée ici..."
-
-                required></textarea>
-
-
-
-      <input type="hidden" name="_subject"
-
-             value="Nouvelle idée pour mon site">
-
-
-
-      <input type="hidden" name="_captcha" value="true">
-
-
-
-      <button type="submit">Envoyer mon idée 🚀</button>
+      <button id="bouton-envoi" type="submit">
+        Envoyer mon idée 🚀
+      </button>
 
     </form>
 
+    <p class="note">
+      Merci de contribuer à l'amélioration du site !
+    </p>
 
+    <!-- PIED DE PAGE -->
+    <footer class="pied-page">
 
-    <p class="note">Merci de contribuer à l'amélioration du site!</p>
-    
-donne une idee © 2026 Tous droits réservés.
-Hébergement : Google | Email : lolanberkat@gmail.com
-Hébergeur du site : github
+      <div class="nom-site">Donne une idée 💡</div>
 
+      <div>© 2026 — Tous droits réservés.</div>
+
+      <div>Hébergement : GitHub Pages</div>
+
+      <div>
+        Contact :
+        <a href="mailto:lolanberkat@gmail.com">
+          lolanberkat@gmail.com
+        </a>
+      </div>
+
+    </footer>
+
+  </main>
+
+  <!-- FENÊTRE DE CONFIRMATION -->
+  <div
+    class="fond-modal"
+    id="fenetre"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="titre-modal">
+
+    <div class="modal">
+
+      <button
+        type="button"
+        class="fermer"
+        id="croix"
+        aria-label="Fermer la fenêtre">
+        ×
+      </button>
+
+      <div class="icone" id="icone-modal">💡</div>
+
+      <h2 id="titre-modal">Envoi en cours...</h2>
+
+      <p id="message-modal">
+        Nous envoyons ton idée. Merci de patienter !
+      </p>
+
+      <button
+        type="button"
+        id="bouton-fermer"
+        style="display:none">
+        Fermer
+      </button>
+
+    </div>
   </div>
 
+  <script>
+    const formulaire = document.getElementById("formulaire");
+    const fenetre = document.getElementById("fenetre");
+    const croix = document.getElementById("croix");
+    const boutonFermer = document.getElementById("bouton-fermer");
+    const boutonEnvoi = document.getElementById("bouton-envoi");
+
+    const titre = document.getElementById("titre-modal");
+    const message = document.getElementById("message-modal");
+    const icone = document.getElementById("icone-modal");
+
+    function fermerFenetre() {
+      fenetre.style.display = "none";
+    }
+
+    function afficherResultat(titreTexte, messageTexte, iconeTexte) {
+      titre.textContent = titreTexte;
+      message.textContent = messageTexte;
+      icone.textContent = iconeTexte;
+      boutonFermer.style.display = "block";
+    }
+
+    formulaire.addEventListener("submit", async function(event) {
+      event.preventDefault();
+
+      if (!formulaire.reportValidity()) {
+        return;
+      }
+
+      boutonEnvoi.disabled = true;
+      boutonEnvoi.textContent = "Envoi en cours...";
+
+      titre.textContent = "Envoi en cours...";
+      message.textContent = "Nous envoyons ton idée. Merci de patienter !";
+      icone.textContent = "💡";
+      boutonFermer.style.display = "none";
+
+      fenetre.style.display = "flex";
+
+      try {
+        const reponse = await fetch(formulaire.action, {
+          method: "POST",
+          body: new FormData(formulaire),
+          headers: {
+            "Accept": "application/json"
+          }
+        });
+
+        if (!reponse.ok) {
+          throw new Error("L'envoi a échoué.");
+        }
+
+        afficherResultat(
+          "Idée envoyée !",
+          "Merci pour ta participation ! Ton idée a bien été transmise. 🚀",
+          "✅"
+        );
+
+        formulaire.reset();
+
+      } catch (erreur) {
+        afficherResultat(
+          "Envoi impossible",
+          "Ton idée n'a pas pu être confirmée. Vérifie ta connexion et réessaie.",
+          "⚠️"
+        );
+      } finally {
+        boutonEnvoi.disabled = false;
+        boutonEnvoi.textContent = "Envoyer mon idée 🚀";
+      }
+    });
+
+    croix.addEventListener("click", fermerFenetre);
+    boutonFermer.addEventListener("click", fermerFenetre);
+
+    fenetre.addEventListener("click", function(event) {
+      if (event.target === fenetre) {
+        fermerFenetre();
+      }
+    });
+
+    document.addEventListener("keydown", function(event) {
+      if (event.key === "Escape") {
+        fermerFenetre();
+      }
+    });
+  </script>
+
 </body>
-
 </html>
-
-
-
-
-
-
-
-
-
