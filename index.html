@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -63,9 +62,7 @@
       background: linear-gradient(145deg, #1b2138, #121729 75%);
       border: 1px solid #343d60;
       border-radius: 25px;
-      box-shadow:
-        0 25px 70px #00000050,
-        0 0 45px #6570ff0c;
+      box-shadow: 0 25px 70px #00000050, 0 0 45px #6570ff0c;
       animation: apparition 0.6s ease both;
     }
 
@@ -123,12 +120,7 @@
     .separateur {
       height: 1px;
       margin: 25px 0;
-      background: linear-gradient(
-        90deg,
-        transparent,
-        #414969,
-        transparent
-      );
+      background: linear-gradient(90deg, transparent, #414969, transparent);
     }
 
     .formulaire {
@@ -164,10 +156,7 @@
       background: var(--champ);
       color: white;
       font-size: 14px;
-      transition:
-        border-color 0.2s,
-        box-shadow 0.2s,
-        background 0.2s;
+      transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
     }
 
     .champ::placeholder {
@@ -242,10 +231,7 @@
       font-weight: bold;
       cursor: pointer;
       box-shadow: 0 8px 22px #747fff25;
-      transition:
-        transform 0.2s,
-        box-shadow 0.2s,
-        filter 0.2s;
+      transition: transform 0.2s, box-shadow 0.2s, filter 0.2s;
     }
 
     .bouton:hover:not(:disabled) {
@@ -431,39 +417,8 @@
       }
     }
 
-    @media (max-width: 480px) {
-      body {
-        padding: 18px 12px;
-        align-items: flex-start;
-      }
-
-      .boite {
-        padding: 25px 20px;
-        border-radius: 20px;
-      }
-
-      .haut {
-        margin-bottom: 23px;
-      }
-
-      .description {
-        font-size: 13px;
-      }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      *,
-      *::before,
-      *::after {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        scroll-behavior: auto !important;
-        transition-duration: 0.01ms !important;
-      }
-    }
-
-
     /* Bouton flottant « Image du jour » */
+
     .bouton-image-jour {
       position: fixed;
       top: 45%;
@@ -531,6 +486,18 @@
       border: 1px solid var(--bordure);
       border-radius: 12px;
     }
+
+    /* Message au-dessus du bouton Fermer */
+
+    .message-merci-image {
+      margin: 18px 0 0;
+      color: #ffffff;
+      font-size: 18px;
+      font-weight: bold;
+      line-height: 1.6;
+      text-align: center;
+    }
+
     .fermer-image-jour {
       width: 100%;
       margin-top: 18px;
@@ -547,6 +514,24 @@
     }
 
     @media (max-width: 480px) {
+      body {
+        padding: 18px 12px;
+        align-items: flex-start;
+      }
+
+      .boite {
+        padding: 25px 20px;
+        border-radius: 20px;
+      }
+
+      .haut {
+        margin-bottom: 23px;
+      }
+
+      .description {
+        font-size: 13px;
+      }
+
       .bouton-image-jour {
         top: auto;
         bottom: 25%;
@@ -558,6 +543,16 @@
       }
     }
 
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
   </style>
 </head>
 
@@ -580,7 +575,8 @@
 
     <div class="separateur"></div>
 
-    <!-- FORMULAIRE FORMSUBMIT CONSERVÉ -->
+    <!-- FORMULAIRE FORMSUBMIT -->
+
     <form
       id="formulaire"
       class="formulaire"
@@ -589,6 +585,7 @@
 
       <div class="groupe">
         <label for="pseudo">Ton pseudo</label>
+
         <input
           class="champ"
           id="pseudo"
@@ -602,6 +599,7 @@
 
       <div class="groupe">
         <label for="email">Ton adresse e-mail</label>
+
         <input
           class="champ"
           id="email"
@@ -615,6 +613,7 @@
 
       <div class="groupe">
         <label for="idee">Ton idée</label>
+
         <textarea
           class="champ"
           id="idee"
@@ -643,6 +642,7 @@
 
       <div class="confidentialite">
         <span aria-hidden="true">🔒</span>
+
         <span>
           Tes informations servent à transmettre et traiter ta suggestion.
           Évite d'inclure des données personnelles dans ton idée.
@@ -684,7 +684,8 @@
 
   </main>
 
-  <!-- FENÊTRE DE CONFIRMATION -->
+  <!-- FENÊTRE DE CONFIRMATION DE L'ENVOI -->
+
   <div
     class="fond-modal"
     id="fenetre"
@@ -733,33 +734,53 @@
     </div>
   </div>
 
+  <!-- BOUTON LATÉRAL « IMAGE DU JOUR » -->
 
-  <!-- Bouton latéral pour ouvrir l'image du jour -->
- <button type="button" class="bouton-image-jour" id="ouvrir-image-jour">
-  🖼️ Image du jour
-</button>
+  <button
+    type="button"
+    class="bouton-image-jour"
+    id="ouvrir-image-jour">
+    🖼️ Image du jour
+  </button>
 
-<div class="fond-image-jour" id="fond-image-jour"
-     role="dialog" aria-modal="true"
-     aria-labelledby="titre-image-jour"
-     aria-hidden="true">
+  <!-- FENÊTRE DE L'IMAGE DU JOUR -->
 
-  <div class="carte-image-jour">
-    <h2 id="titre-image-jour">🖼️ Image du jour</h2>
+  <div
+    class="fond-image-jour"
+    id="fond-image-jour"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="titre-image-jour"
+    aria-hidden="true">
 
-    <img
-      class="photo-image-jour"
-      src="H.jpg"
-      alt="Image du jour"
-    >
+    <div class="carte-image-jour">
 
-    <button type="button" class="fermer-image-jour" id="fermer-image-jour">
-      Fermer
-    </button>
+      <h2 class="titre-image-jour" id="titre-image-jour">
+        🖼️ Image du jour
+      </h2>
+
+      <img
+        class="photo-image-jour"
+        src="H.jpg"
+        alt="Image du jour">
+
+      <p class="message-merci-image">
+        Merci Adox pour ton idée ! 💡❤️
+      </p>
+
+      <button
+        type="button"
+        class="fermer-image-jour"
+        id="fermer-image-jour">
+        Fermer
+      </button>
+
+    </div>
   </div>
-</div>
 
   <script>
+    // Éléments du formulaire
+
     const formulaire = document.getElementById("formulaire");
     const fenetre = document.getElementById("fenetre");
     const croix = document.getElementById("croix");
@@ -777,12 +798,16 @@
     let derniereTentative = null;
     let dernierFocus = null;
 
+    // Ouvrir la fenêtre de confirmation
+
     function ouvrirFenetre() {
       dernierFocus = document.activeElement;
       fenetre.classList.add("ouvert");
       fenetre.setAttribute("aria-hidden", "false");
       croix.focus();
     }
+
+    // Fermer la fenêtre de confirmation
 
     function fermerFenetre() {
       if (envoiEnCours) return;
@@ -794,6 +819,8 @@
         dernierFocus.focus();
       }
     }
+
+    // Afficher le résultat de l'envoi
 
     function afficherResultat(
       titreTexte,
@@ -811,6 +838,8 @@
       boutonFermer.classList.toggle("bouton-secondaire", !succes);
     }
 
+    // Afficher le chargement
+
     function afficherChargement() {
       titre.textContent = "Envoi en cours...";
       message.textContent =
@@ -821,19 +850,25 @@
       boutonReessayer.style.display = "none";
     }
 
+    // Mettre à jour le compteur de caractères
+
     function mettreAJourCompteur() {
       compteur.textContent = champIdee.value.length + " / 2000";
     }
 
     champIdee.addEventListener("input", mettreAJourCompteur);
 
+    // Envoyer l'idée avec FormSubmit
+
     async function envoyerIdee() {
       if (envoiEnCours || !derniereTentative) return;
 
       envoiEnCours = true;
       boutonEnvoi.disabled = true;
+
       boutonEnvoi.innerHTML =
-        '<span class="chargement" aria-hidden="true"></span><span>Envoi en cours...</span>';
+        '<span class="chargement" aria-hidden="true"></span>' +
+        '<span>Envoi en cours...</span>';
 
       afficherChargement();
       ouvrirFenetre();
@@ -885,10 +920,14 @@
       } finally {
         envoiEnCours = false;
         boutonEnvoi.disabled = false;
+
         boutonEnvoi.innerHTML =
-          '<span>Envoyer mon idée</span><span aria-hidden="true">↗</span>';
+          '<span>Envoyer mon idée</span>' +
+          '<span aria-hidden="true">↗</span>';
       }
     }
+
+    // Vérifier le formulaire avant l'envoi
 
     formulaire.addEventListener("submit", function(event) {
       event.preventDefault();
@@ -903,6 +942,8 @@
       envoyerIdee();
     });
 
+    // Boutons de la fenêtre de confirmation
+
     boutonReessayer.addEventListener("click", envoyerIdee);
     croix.addEventListener("click", fermerFenetre);
     boutonFermer.addEventListener("click", fermerFenetre);
@@ -913,24 +954,12 @@
       }
     });
 
-    document.addEventListener("keydown", function(event) {
-      if (event.key === "Escape" && fenetre.classList.contains("ouvert")) {
-        fermerFenetre();
-      }
-    });
-    
-    mettreAJourCompteur();
-
     // Fonctionnement du bouton « Image du jour »
+
     const ouvrirImageJour = document.getElementById("ouvrir-image-jour");
     const fondImageJour = document.getElementById("fond-image-jour");
     const fermerImageJour = document.getElementById("fermer-image-jour");
 
-    function ouvrirFenetreImageJour() {
-      fondImageJour.classList.add("ouvert");
-      fondImageJour.setAttribute("aria-hidden", "false");
-      fermerImageJour.focus();
-    }
     function ouvrirFenetreImageJour() {
       fondImageJour.classList.add("ouvert");
       fondImageJour.setAttribute("aria-hidden", "false");
@@ -952,12 +981,27 @@
       }
     });
 
+    // Fermer les fenêtres avec la touche Échap
+
     document.addEventListener("keydown", function(event) {
-      if (event.key === "Escape" && fondImageJour.classList.contains("ouvert")) {
+      if (
+        event.key === "Escape" &&
+        fondImageJour.classList.contains("ouvert")
+      ) {
         fermerFenetreImageJour();
+      }
+
+      if (
+        event.key === "Escape" &&
+        fenetre.classList.contains("ouvert")
+      ) {
+        fermerFenetre();
       }
     });
 
+    // Initialiser le compteur
+
+    mettreAJourCompteur();
   </script>
 
 </body>
