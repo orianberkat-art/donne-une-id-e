@@ -9,6 +9,106 @@
   <link rel="icon" type="image/png" href="logo.png">
 
   <title>Boîte à idées 💡</title>
+  
+/* Bouton flottant */
+.bouton-idee {
+  position: fixed;
+  right: 0;
+  top: 45%;
+  z-index: 900;
+  padding: 14px 12px;
+  border: 1px solid #929aff;
+  border-right: none;
+  border-radius: 14px 0 0 14px;
+  background: linear-gradient(135deg, #747fff, #8b70ee);
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 5px 25px #747fff44;
+  writing-mode: vertical-rl;
+  transition: padding 0.2s, background 0.2s;
+}
+
+.bouton-idee:hover {
+  padding-right: 18px;
+  background: #929aff;
+}
+
+/* Fenêtre de l'idée du jour */
+.fenetre-idee {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  padding: 20px;
+  align-items: center;
+  justify-content: center;
+  background: #000000cc;
+  backdrop-filter: blur(6px);
+}
+
+.fenetre-idee.ouverte {
+  display: flex;
+}
+
+.contenu-idee {
+  width: 100%;
+  max-width: 430px;
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 24px;
+  position: relative;
+  text-align: center;
+  background: #1d2238;
+  border: 1px solid #414969;
+  border-radius: 20px;
+  box-shadow: 0 0 35px #747fff33;
+  animation: apparition 0.25s ease;
+}
+
+.contenu-idee h2 {
+  margin: 5px 0 20px;
+  color: #a5adff;
+  font-size: 25px;
+}
+
+.photo-idee {
+  display: block;
+  width: 100%;
+  max-height: 55vh;
+  object-fit: contain;
+  border-radius: 12px;
+}
+
+.fermer-idee {
+  display: block;
+  width: 100%;
+  margin-top: 18px;
+  padding: 12px;
+  border: none;
+  border-radius: 10px;
+  background: #747fff;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.fermer-idee:hover {
+  background: #929aff;
+}
+
+@media (max-width: 480px) {
+  .bouton-idee {
+    top: auto;
+    bottom: 25%;
+    font-size: 12px;
+  }
+
+  .contenu-idee {
+    padding: 18px;
+  }
+}
+
 
   <style>
     * {
@@ -264,7 +364,7 @@
 
       <div>
         Contact :
-        <a href="mailto:lolanberkat@gmail.com">
+        <a href="mailto:donne.une.idee@gmail.com">
           lolanberkat@gmail.com
         </a>
       </div>
@@ -397,5 +497,74 @@
     });
   </script>
 
+<!-- Bouton sur le côté -->
+<button
+  type="button"
+  class="bouton-idee"
+  id="ouvrir-idee">
+  💡 Idée du jour
+</button>
+
+<!-- Fenêtre contenant la photo -->
+<div
+  class="fenetre-idee"
+  id="fenetre-idee"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="titre-idee">
+
+  <div class="contenu-idee">
+
+    <h2 id="titre-idee">💡 Idée du jour</h2>
+
+    <img
+      class="photo-idee"
+      src="idee-du-jour.png"
+      alt="Illustration de l'idée du jour">
+
+    <button
+      type="button"
+      class="fermer-idee"
+      id="fermer-idee">
+      Fermer
+    </button>
+
+  </div>
+</div>
+
+<script>
+  const ouvrirIdee = document.getElementById("ouvrir-idee");
+  const fenetreIdee = document.getElementById("fenetre-idee");
+  const fermerIdee = document.getElementById("fermer-idee");
+
+  function afficherIdee() {
+    fenetreIdee.classList.add("ouverte");
+    fermerIdee.focus();
+  }
+
+  function cacherIdee() {
+    fenetreIdee.classList.remove("ouverte");
+    ouvrirIdee.focus();
+  }
+
+  ouvrirIdee.addEventListener("click", afficherIdee);
+  fermerIdee.addEventListener("click", cacherIdee);
+
+  fenetreIdee.addEventListener("click", function(event) {
+    if (event.target === fenetreIdee) {
+      cacherIdee();
+    }
+  });
+
+  document.addEventListener("keydown", function(event) {
+    if (
+      event.key === "Escape" &&
+      fenetreIdee.classList.contains("ouverte")
+    ) {
+      cacherIdee();
+    }
+  });
+</script>
+</body>
 </body>
 </html>
