@@ -1,14 +1,12 @@
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#101323">
-  <meta name="description" content="Partage tes idées pour nous aider à améliorer le site. Chaque suggestion compte !">
+  <meta name="description" content="Partage tes idées pour améliorer le site.">
 
   <link rel="icon" type="image/png" href="logo.png">
-
   <title>Donne une idée 💡</title>
 
   <style>
@@ -47,10 +45,20 @@
         var(--fond);
     }
 
-    button,
-    input,
-    textarea {
+    button, input, textarea {
       font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    button:focus-visible,
+    input:focus-visible,
+    textarea:focus-visible,
+    a:focus-visible {
+      outline: 2px solid #a5adff;
+      outline-offset: 3px;
     }
 
     .boite {
@@ -62,8 +70,8 @@
       background: linear-gradient(145deg, #1b2138, #121729 75%);
       border: 1px solid #343d60;
       border-radius: 25px;
-      box-shadow: 0 25px 70px #00000050, 0 0 45px #6570ff0c;
-      animation: apparition 0.6s ease both;
+      box-shadow: 0 25px 70px #00000050;
+      animation: apparition 0.5s ease both;
     }
 
     .haut {
@@ -80,7 +88,6 @@
       border: 1px solid #858bff66;
       border-radius: 20px;
       background: linear-gradient(135deg, #747fff30, #a38bff12);
-      box-shadow: 0 0 30px #747fff15;
       font-size: 31px;
     }
 
@@ -109,7 +116,7 @@
       color: #a5adff;
     }
 
-    .description {
+    .description-site {
       max-width: 330px;
       margin: 13px auto 0;
       color: var(--secondaire);
@@ -141,11 +148,6 @@
       font-weight: bold;
     }
 
-    .optionnel {
-      color: var(--secondaire);
-      font-weight: normal;
-    }
-
     .champ {
       width: 100%;
       min-width: 0;
@@ -156,7 +158,7 @@
       background: var(--champ);
       color: white;
       font-size: 14px;
-      transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+      transition: border-color 0.2s, box-shadow 0.2s;
     }
 
     .champ::placeholder {
@@ -171,13 +173,6 @@
       border-color: var(--bleu);
       background: #11162a;
       box-shadow: 0 0 0 3px #747fff20;
-    }
-
-    .champ:focus-visible,
-    button:focus-visible,
-    a:focus-visible {
-      outline: 2px solid #a5adff;
-      outline-offset: 3px;
     }
 
     textarea.champ {
@@ -211,10 +206,6 @@
       line-height: 1.7;
     }
 
-    .confidentialite span:first-child {
-      font-size: 17px;
-    }
-
     .bouton {
       width: 100%;
       min-height: 51px;
@@ -229,7 +220,6 @@
       color: white;
       font-size: 14px;
       font-weight: bold;
-      cursor: pointer;
       box-shadow: 0 8px 22px #747fff25;
       transition: transform 0.2s, box-shadow 0.2s, filter 0.2s;
     }
@@ -238,10 +228,6 @@
       transform: translateY(-2px);
       box-shadow: 0 12px 30px #747fff35;
       filter: brightness(1.1);
-    }
-
-    .bouton:active:not(:disabled) {
-      transform: translateY(0);
     }
 
     .bouton:disabled {
@@ -272,7 +258,6 @@
       color: #b3b9ff;
       font-size: 14px;
       font-weight: bold;
-      letter-spacing: 0.3px;
     }
 
     .pied-page a {
@@ -303,29 +288,48 @@
       box-shadow: 0 0 8px #65e6b077;
     }
 
-    /* Fenêtre de confirmation */
+    /* Fenêtres */
 
-    .fond-modal {
+    .fond-modal,
+    .fond-image-jour,
+    .fond-presentation {
       display: none;
       position: fixed;
       inset: 0;
-      z-index: 1000;
+      padding: 20px;
       justify-content: center;
       align-items: center;
-      padding: 18px;
-      background: #050711cc;
-      backdrop-filter: blur(8px);
+      background: #000000b8;
+      backdrop-filter: blur(7px);
     }
 
-    .fond-modal.ouvert {
+    .fond-modal {
+      z-index: 1000;
+    }
+
+    .fond-image-jour {
+      z-index: 2000;
+    }
+
+    .fond-presentation {
+      z-index: 2100;
+    }
+
+    .fond-modal.ouvert,
+    .fond-image-jour.ouvert,
+    .fond-presentation.ouvert {
       display: flex;
     }
 
-    .modal {
+    .modal,
+    .carte-image-jour,
+    .carte-presentation {
       position: relative;
       width: 100%;
-      max-width: 365px;
-      padding: 32px 24px 25px;
+      max-width: 420px;
+      max-height: 90vh;
+      overflow-y: auto;
+      padding: 26px;
       border: 1px solid #424b70;
       border-radius: 22px;
       background: linear-gradient(145deg, #202741, #14192b);
@@ -334,9 +338,19 @@
       animation: apparition 0.25s ease both;
     }
 
-    .fermer {
+    .modal {
+      max-width: 365px;
+    }
+
+    .titre-fenetre {
+      margin: 0 0 20px;
+      color: var(--violet);
+      font-size: 24px;
+    }
+
+    .fermer-croix {
       position: absolute;
-      top: 10px;
+      top: 8px;
       right: 10px;
       width: 36px;
       height: 36px;
@@ -346,10 +360,9 @@
       background: transparent;
       color: #c4c8df;
       font-size: 25px;
-      cursor: pointer;
     }
 
-    .fermer:hover {
+    .fermer-croix:hover {
       background: #ffffff10;
       color: white;
     }
@@ -368,8 +381,8 @@
 
     .modal h2 {
       margin: 0 0 12px;
-      font-size: 24px;
       color: #b1b7ff;
+      font-size: 24px;
     }
 
     .modal p {
@@ -378,10 +391,6 @@
       font-size: 14px;
       line-height: 1.8;
       overflow-wrap: anywhere;
-    }
-
-    .modal .bouton {
-      margin-top: 5px;
     }
 
     .bouton-secondaire {
@@ -417,100 +426,105 @@
       }
     }
 
-    /* Bouton flottant « Image du jour » */
+    /* Boutons latéraux sur la première page */
 
-    .bouton-image-jour {
+    .bouton-lateral {
       position: fixed;
-      top: 45%;
-      right: 0;
+      top: 42%;
       z-index: 900;
       width: auto;
       margin: 0;
       padding: 14px 10px;
       border: 1px solid var(--bleu);
-      border-right: 0;
-      border-radius: 12px 0 0 12px;
+      border-radius: 12px;
       background: linear-gradient(135deg, var(--bleu), var(--violet));
       color: white;
       font-size: 13px;
       writing-mode: vertical-rl;
-      cursor: pointer;
       box-shadow: 0 0 20px #747fff33;
     }
 
-    .bouton-image-jour:hover {
+    .bouton-lateral:hover {
       background: var(--violet);
     }
 
-    .fond-image-jour {
-      display: none;
-      position: fixed;
-      inset: 0;
-      z-index: 2000;
-      padding: 20px;
-      justify-content: center;
-      align-items: center;
-      background: #000000b8;
-      backdrop-filter: blur(6px);
+    .bouton-image-jour {
+      right: 0;
+      border-right: 0;
+      border-radius: 12px 0 0 12px;
     }
 
-    .fond-image-jour.ouvert {
-      display: flex;
+    .bouton-presentation {
+      left: 0;
+      border-left: 0;
+      border-radius: 0 12px 12px 0;
+      top: 42%;
     }
 
-    .carte-image-jour {
-      position: relative;
-      width: 100%;
-      max-width: 420px;
-      max-height: 90vh;
-      overflow-y: auto;
-      padding: 25px;
-      border: 1px solid var(--bordure);
-      border-radius: 20px;
-      background: var(--carte);
-      text-align: center;
-      box-shadow: 0 0 30px #5965ff55;
-    }
-
-    .titre-image-jour {
-      margin: 0 0 20px;
-      color: var(--violet);
-      font-size: 24px;
-    }
+    /* Image du jour */
 
     .photo-image-jour {
       display: block;
       width: 100%;
-      max-height: 60vh;
+      max-height: 45vh;
       object-fit: contain;
       border: 1px solid var(--bordure);
       border-radius: 12px;
     }
 
-    /* Message au-dessus du bouton Fermer */
+    .bouton-description {
+      display: block;
+      margin: 14px auto 0;
+      padding: 10px 16px;
+      border: 1px solid var(--bordure);
+      border-radius: 10px;
+      background: #303956;
+      color: white;
+      font-size: 13px;
+    }
+
+    .bouton-description:hover {
+      background: var(--violet);
+    }
+
+    .texte-description-image {
+      margin: 12px 0 0;
+      padding: 12px;
+      border: 1px solid var(--bordure);
+      border-radius: 10px;
+      background: #101527;
+      color: var(--secondaire);
+      font-size: 13px;
+      line-height: 1.7;
+      text-align: left;
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+    }
+
+    .texte-description-image[hidden] {
+      display: none;
+    }
 
     .message-merci-image {
       margin: 18px 0 0;
-      color: #ffffff;
+      color: white;
       font-size: 18px;
       font-weight: bold;
       line-height: 1.6;
-      text-align: center;
     }
 
-    .fermer-image-jour {
-      width: 100%;
+    .fermer-fenetre {
       margin-top: 18px;
-      padding: 12px;
-      border: none;
-      border-radius: 10px;
-      background: var(--bleu);
-      color: white;
-      cursor: pointer;
     }
 
-    .fermer-image-jour:hover {
-      background: var(--violet);
+    /* Présentation du site */
+
+    .texte-presentation {
+      color: #c4c8df;
+      font-size: 14px;
+      line-height: 1.9;
+      text-align: left;
+      white-space: pre-line;
     }
 
     @media (max-width: 480px) {
@@ -528,18 +542,21 @@
         margin-bottom: 23px;
       }
 
-      .description {
+      .description-site {
         font-size: 13px;
       }
 
-      .bouton-image-jour {
+      .bouton-lateral {
         top: auto;
-        bottom: 25%;
+        bottom: 22%;
         padding: 12px 8px;
+        font-size: 12px;
       }
 
-      .carte-image-jour {
-        padding: 18px;
+      .carte-image-jour,
+      .carte-presentation,
+      .modal {
+        padding: 22px 18px;
       }
     }
 
@@ -558,16 +575,17 @@
 
 <body>
 
+  <!-- PAGE PRINCIPALE -->
+
   <main class="boite">
 
     <header class="haut">
       <div class="logo" aria-hidden="true">💡</div>
-
       <div class="etiquette">Ton avis compte</div>
 
       <h1>Donne une <span class="accent">idée.</span></h1>
 
-      <p class="description">
+      <p class="description-site">
         Une suggestion, une amélioration ou une nouvelle fonctionnalité ?
         Partage ton idée pour nous aider à faire évoluer le site.
       </p>
@@ -585,7 +603,6 @@
 
       <div class="groupe">
         <label for="pseudo">Ton pseudo</label>
-
         <input
           class="champ"
           id="pseudo"
@@ -599,7 +616,6 @@
 
       <div class="groupe">
         <label for="email">Ton adresse e-mail</label>
-
         <input
           class="champ"
           id="email"
@@ -613,7 +629,6 @@
 
       <div class="groupe">
         <label for="idee">Ton idée</label>
-
         <textarea
           class="champ"
           id="idee"
@@ -642,7 +657,6 @@
 
       <div class="confidentialite">
         <span aria-hidden="true">🔒</span>
-
         <span>
           Tes informations servent à transmettre et traiter ta suggestion.
           Évite d'inclure des données personnelles dans ton idée.
@@ -668,9 +682,7 @@
       </div>
 
       <div class="nom-site">Donne une idée 💡</div>
-
       <div>© 2026 — Tous droits réservés.</div>
-
       <div>Hébergement : GitHub Pages</div>
 
       <div>
@@ -681,10 +693,119 @@
       </div>
 
     </footer>
-
   </main>
 
-  <!-- FENÊTRE DE CONFIRMATION DE L'ENVOI -->
+  <!-- BOUTON IMAGE DU JOUR -->
+
+  <button
+    type="button"
+    class="bouton-lateral bouton-image-jour"
+    id="ouvrir-image-jour">
+    🖼️ Image du jour
+  </button>
+
+  <!-- BOUTON DE PRÉSENTATION SUR LA PREMIÈRE PAGE -->
+
+  <button
+    type="button"
+    class="bouton-lateral bouton-presentation"
+    id="ouvrir-presentation">
+    ✨ Présentation du site
+  </button>
+
+  <!-- FENÊTRE DE L'IMAGE DU JOUR -->
+
+  <div
+    class="fond-image-jour"
+    id="fond-image-jour"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="titre-image-jour"
+    aria-hidden="true">
+
+    <div class="carte-image-jour">
+
+      <h2 class="titre-fenetre" id="titre-image-jour">
+        🖼️ Image du jour
+      </h2>
+
+      <!-- Garde H.jpg dans le même dossier que index.html -->
+
+      <img
+        class="photo-image-jour"
+        src="H.jpg"
+        alt="Image du jour">
+
+      <button
+        type="button"
+        class="bouton-description"
+        id="bouton-description"
+        aria-expanded="false"
+        aria-controls="texte-description-image">
+        ℹ️ Voir la description
+      </button>
+
+      <!-- MODIFIE TOI-MÊME LA DESCRIPTION DE L'IMAGE ICI -->
+
+      <p
+        class="texte-description-image"
+        id="texte-description-image"
+        hidden>Voici l'idée d'Azox : mettre une photo d'Asterion.</p>
+
+      <p class="message-merci-image">
+        Merci Azoxx pour ton idée ! 💡
+      </p>
+
+      <button
+        type="button"
+        class="bouton fermer-fenetre"
+        id="fermer-image-jour">
+        Fermer
+      </button>
+
+    </div>
+  </div>
+
+  <!-- FENÊTRE DE PRÉSENTATION DU SITE -->
+
+  <div
+    class="fond-presentation"
+    id="fond-presentation"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="titre-presentation"
+    aria-hidden="true">
+
+    <div class="carte-presentation">
+
+      <h2 class="titre-fenetre" id="titre-presentation">
+        ✨ Bienvenue sur Donne une idée !
+      </h2>
+
+      <!--
+        TU PEUX MODIFIER CE MESSAGE QUAND TU VEUX.
+        Il s'affiche quand un visiteur clique sur le bouton de gauche.
+      -->
+
+      <p class="texte-presentation">Bienvenue sur Donne une idée !
+
+Ce site est là pour recueillir tes suggestions et trouver de nouvelles façons de l'améliorer.
+
+Tu as une idée, une proposition ou quelque chose que tu aimerais voir ici ? Tu peux la partager grâce au formulaire. Même une petite suggestion peut apporter quelque chose de nouveau !
+
+Prends quelques instants pour nous dire ce que tu en penses. Merci de passer par ici et de participer au projet ! 💡</p>
+
+      <button
+        type="button"
+        class="bouton fermer-fenetre"
+        id="fermer-presentation">
+        Fermer
+      </button>
+
+    </div>
+  </div>
+
+  <!-- FENÊTRE DE CONFIRMATION DU FORMULAIRE -->
 
   <div
     class="fond-modal"
@@ -699,15 +820,13 @@
 
       <button
         type="button"
-        class="fermer"
+        class="fermer-croix"
         id="croix"
         aria-label="Fermer la fenêtre">
         ×
       </button>
 
-      <div class="icone-modal" id="icone-modal" aria-hidden="true">
-        💡
-      </div>
+      <div class="icone-modal" id="icone-modal" aria-hidden="true">💡</div>
 
       <h2 id="titre-modal">Envoi en cours...</h2>
 
@@ -734,52 +853,8 @@
     </div>
   </div>
 
-  <!-- BOUTON LATÉRAL « IMAGE DU JOUR » -->
-
-  <button
-    type="button"
-    class="bouton-image-jour"
-    id="ouvrir-image-jour">
-    🖼️ Image du jour
-  </button>
-
-  <!-- FENÊTRE DE L'IMAGE DU JOUR -->
-
-  <div
-    class="fond-image-jour"
-    id="fond-image-jour"
-    role="dialog"
-    aria-modal="true"
-    aria-labelledby="titre-image-jour"
-    aria-hidden="true">
-
-    <div class="carte-image-jour">
-
-      <h2 class="titre-image-jour" id="titre-image-jour">
-        🖼️ Image du jour
-      </h2>
-
-      <img
-        class="photo-image-jour"
-        src="H.jpg"
-        alt="Image du jour">
-
-      <p class="message-merci-image">
-        Merci Azox pour ton idée ! 💡
-      </p>
-
-      <button
-        type="button"
-        class="fermer-image-jour"
-        id="fermer-image-jour">
-        Fermer
-      </button>
-
-    </div>
-  </div>
-
   <script>
-    // Éléments du formulaire
+    // ÉLÉMENTS DU FORMULAIRE
 
     const formulaire = document.getElementById("formulaire");
     const fenetre = document.getElementById("fenetre");
@@ -798,16 +873,12 @@
     let derniereTentative = null;
     let dernierFocus = null;
 
-    // Ouvrir la fenêtre de confirmation
-
     function ouvrirFenetre() {
       dernierFocus = document.activeElement;
       fenetre.classList.add("ouvert");
       fenetre.setAttribute("aria-hidden", "false");
       croix.focus();
     }
-
-    // Fermer la fenêtre de confirmation
 
     function fermerFenetre() {
       if (envoiEnCours) return;
@@ -820,25 +891,15 @@
       }
     }
 
-    // Afficher le résultat de l'envoi
-
-    function afficherResultat(
-      titreTexte,
-      messageTexte,
-      iconeTexte,
-      succes
-    ) {
+    function afficherResultat(titreTexte, messageTexte, iconeTexte, succes) {
       titre.textContent = titreTexte;
       message.textContent = messageTexte;
       icone.textContent = iconeTexte;
 
       boutonFermer.style.display = "flex";
       boutonReessayer.style.display = succes ? "none" : "flex";
-
       boutonFermer.classList.toggle("bouton-secondaire", !succes);
     }
-
-    // Afficher le chargement
 
     function afficherChargement() {
       titre.textContent = "Envoi en cours...";
@@ -850,15 +911,11 @@
       boutonReessayer.style.display = "none";
     }
 
-    // Mettre à jour le compteur de caractères
-
     function mettreAJourCompteur() {
       compteur.textContent = champIdee.value.length + " / 2000";
     }
 
     champIdee.addEventListener("input", mettreAJourCompteur);
-
-    // Envoyer l'idée avec FormSubmit
 
     async function envoyerIdee() {
       if (envoiEnCours || !derniereTentative) return;
@@ -876,7 +933,7 @@
       try {
         const reponse = await fetch(formulaire.action, {
           method: "POST",
-          body: new FormData(formulaire),
+          body: derniereTentative,
           headers: {
             "Accept": "application/json"
           }
@@ -927,79 +984,111 @@
       }
     }
 
-    // Vérifier le formulaire avant l'envoi
-
     formulaire.addEventListener("submit", function(event) {
       event.preventDefault();
 
       if (envoiEnCours) return;
 
-      if (!formulaire.reportValidity()) {
-        return;
-      }
+      if (!formulaire.reportValidity()) return;
 
       derniereTentative = new FormData(formulaire);
       envoyerIdee();
     });
-
-    // Boutons de la fenêtre de confirmation
 
     boutonReessayer.addEventListener("click", envoyerIdee);
     croix.addEventListener("click", fermerFenetre);
     boutonFermer.addEventListener("click", fermerFenetre);
 
     fenetre.addEventListener("click", function(event) {
-      if (event.target === fenetre) {
-        fermerFenetre();
-      }
+      if (event.target === fenetre) fermerFenetre();
     });
 
-    // Fonctionnement du bouton « Image du jour »
+    // IMAGE DU JOUR
 
     const ouvrirImageJour = document.getElementById("ouvrir-image-jour");
     const fondImageJour = document.getElementById("fond-image-jour");
     const fermerImageJour = document.getElementById("fermer-image-jour");
 
-    function ouvrirFenetreImageJour() {
+    function afficherImageJour() {
       fondImageJour.classList.add("ouvert");
       fondImageJour.setAttribute("aria-hidden", "false");
       fermerImageJour.focus();
     }
 
-    function fermerFenetreImageJour() {
+    function cacherImageJour() {
       fondImageJour.classList.remove("ouvert");
       fondImageJour.setAttribute("aria-hidden", "true");
       ouvrirImageJour.focus();
     }
 
-    ouvrirImageJour.addEventListener("click", ouvrirFenetreImageJour);
-    fermerImageJour.addEventListener("click", fermerFenetreImageJour);
+    ouvrirImageJour.addEventListener("click", afficherImageJour);
+    fermerImageJour.addEventListener("click", cacherImageJour);
 
     fondImageJour.addEventListener("click", function(event) {
-      if (event.target === fondImageJour) {
-        fermerFenetreImageJour();
-      }
+      if (event.target === fondImageJour) cacherImageJour();
     });
 
-    // Fermer les fenêtres avec la touche Échap
+    // AFFICHER OU MASQUER LA DESCRIPTION DE L'IMAGE
+
+    const boutonDescription = document.getElementById("bouton-description");
+    const texteDescriptionImage =
+      document.getElementById("texte-description-image");
+
+    boutonDescription.addEventListener("click", function() {
+      const doitAfficher = texteDescriptionImage.hidden;
+
+      texteDescriptionImage.hidden = !doitAfficher;
+      boutonDescription.setAttribute(
+        "aria-expanded",
+        String(doitAfficher)
+      );
+
+      boutonDescription.textContent = doitAfficher
+        ? "🙈 Masquer la description"
+        : "ℹ️ Voir la description";
+    });
+
+    // PRÉSENTATION DU SITE
+
+    const ouvrirPresentation = document.getElementById("ouvrir-presentation");
+    const fondPresentation = document.getElementById("fond-presentation");
+    const fermerPresentation =
+      document.getElementById("fermer-presentation");
+
+    function afficherPresentation() {
+      fondPresentation.classList.add("ouvert");
+      fondPresentation.setAttribute("aria-hidden", "false");
+      fermerPresentation.focus();
+    }
+
+    function cacherPresentation() {
+      fondPresentation.classList.remove("ouvert");
+      fondPresentation.setAttribute("aria-hidden", "true");
+      ouvrirPresentation.focus();
+    }
+
+    ouvrirPresentation.addEventListener("click", afficherPresentation);
+    fermerPresentation.addEventListener("click", cacherPresentation);
+
+    fondPresentation.addEventListener("click", function(event) {
+      if (event.target === fondPresentation) cacherPresentation();
+    });
+
+    // TOUCHE ÉCHAP POUR FERMER LES FENÊTRES
 
     document.addEventListener("keydown", function(event) {
-      if (
-        event.key === "Escape" &&
-        fondImageJour.classList.contains("ouvert")
-      ) {
-        fermerFenetreImageJour();
-      }
+      if (event.key !== "Escape") return;
 
-      if (
-        event.key === "Escape" &&
-        fenetre.classList.contains("ouvert")
-      ) {
+      if (fondPresentation.classList.contains("ouvert")) {
+        cacherPresentation();
+      } else if (fondImageJour.classList.contains("ouvert")) {
+        cacherImageJour();
+      } else if (fenetre.classList.contains("ouvert")) {
         fermerFenetre();
       }
     });
 
-    // Initialiser le compteur
+    // INITIALISATION
 
     mettreAJourCompteur();
   </script>
