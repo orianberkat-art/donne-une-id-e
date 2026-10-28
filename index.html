@@ -736,23 +736,29 @@
 
 
   <!-- Bouton latéral pour ouvrir l'image du jour -->
-  <button type="button" class="bouton-image-jour" id="ouvrir-image-jour">
-    🖼️ Image du jour
-  </button>
+ <button type="button" class="bouton-image-jour" id="ouvrir-image-jour">
+  🖼️ Image du jour
+</button>
 
-  <!-- Fenêtre affichée au clic -->
-  <div class="fond-image-jour" id="fond-image-jour"
-       role="dialog" aria-modal="true" aria-labelledby="titre-image-jour"
-       aria-hidden="true">
-    <div class="carte-image-jour">
-      <h2 class="titre-image-jour" id="titre-image-jour">🖼️ Image du jour</h2>
-      <img class="photo-image-jour" src="asterfion.png"
-           alt="Image du jour">
-      <button type="button" class="fermer-image-jour" id="fermer-image-jour">
-        Fermer
-      </button>
-    </div>
+<div class="fond-image-jour" id="fond-image-jour"
+     role="dialog" aria-modal="true"
+     aria-labelledby="titre-image-jour"
+     aria-hidden="true">
+
+  <div class="carte-image-jour">
+    <h2 id="titre-image-jour">🖼️ Image du jour</h2>
+
+    <img
+      class="photo-image-jour"
+      src="asterfion.png"
+      alt="Image du jour"
+    >
+
+    <button type="button" class="fermer-image-jour" id="fermer-image-jour">
+      Fermer
+    </button>
   </div>
+</div>
 
   <script>
     const formulaire = document.getElementById("formulaire");
